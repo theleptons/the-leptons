@@ -1,0 +1,326 @@
+[
+    {
+        "SongID": "LP03T01",
+        "Song": "The Leptons",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-01 - The Leptons.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "1",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP03T02",
+        "Song": "The Slead",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-02 - The Slead.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "2",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP03T03",
+        "Song": "Hand In Hand",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-03 - Hand In Hand.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "3",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP03T04",
+        "Song": "Stink",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-04 - Stink.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "4",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP03T05",
+        "Song": "Nobody Wants To Work",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-05 - Nobody Wants To Work.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "5",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP03T06",
+        "Song": "Trashcan",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-06 - Trashcan.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "6",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP03T07",
+        "Song": "Dinosaur",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-07 - Dinosaur.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "7",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP03T08",
+        "Song": "Wash Your Hands",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-08 - Wash Your Hands.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "8",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP03T09",
+        "Song": "Not A Man",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-09 - Not A Man.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "9",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP03T10",
+        "Song": "Her",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-10 - Her.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "10",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP03T11",
+        "Song": "Fade Out<>Falls Down",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-11 - Fade OutFalls Down.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "11",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP03T12",
+        "Song": "We're Not Afraid To Die",
+        "Path": "assets/sounds/songs/The Leptons - 2026 - The Leptons - 1-12 - We_re Not Afraid To Die.mp3",
+        "Album": "The Leptons",
+        "Year": "2026",
+        "Track": "12",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP02T01",
+        "Song": "Ballad of an Evil Twin",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-01 - Ballad of an Evil Twin.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "1",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP02T02",
+        "Song": "Heavy Heart",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-02 - Heavy Heart.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "2",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP02T03",
+        "Song": "Animal My Soul",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-03 - Animal My Soul.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "3",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP02T04",
+        "Song": "Extraordinary People",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-04 - Extraordinary People.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "4",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP02T05",
+        "Song": "Walk",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-05 - Walk.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "5",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP02T06",
+        "Song": "I Don't Belong Here",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-06 - I Don't Belong Here.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "6",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP02T07",
+        "Song": "Marathon Man",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-07 - Marathon Man.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "7",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP02T08",
+        "Song": "Jerusalem & the Holy War",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-08 - Jerusalem & the Holy War.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "8",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP02T09",
+        "Song": "I Love My Gun",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-09 - I Love My Gun.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "9",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP02T10",
+        "Song": "Heaven",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-10 - Heaven.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "10",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP02T11",
+        "Song": "Last Night",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-11 - Last Night.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "11",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP02T12",
+        "Song": "The Hourglass",
+        "Path": "assets/sounds/songs/The Leptons - 2018 - Pseudonym - 1-12 - The Hourglass.mp3",
+        "Album": "Pseudonym",
+        "Year": "2018",
+        "Track": "12",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP01T01",
+        "Song": "Mighty Youth Society",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-01 - Mighty Youth Society.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "1",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP01T02",
+        "Song": "True American Runaway",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-02 - True American Runaway.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "2",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP01T03",
+        "Song": "El Camino",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-03 - El Camino.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "3",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP01T04",
+        "Song": "Santa Fe",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-04 - Santa Fe.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "4",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP01T05",
+        "Song": "I Am an Embryo",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-05 - I Am an Embryo.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "5",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP01T06",
+        "Song": "(Let's Go to The) Drive-In",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-06 - (Let's Go to The) Drive-In.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "6",
+        "Side": "Side 1"
+    },
+    {
+        "SongID": "LP01T07",
+        "Song": "King of the World",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-07 - King of the World.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "7",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP01T08",
+        "Song": "What Was It That They Put in Your Head",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-08 - What Was It That They Put in Your Head.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "8",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP01T09",
+        "Song": "Zombie Love 1",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-09 - Zombie Love 1.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "9",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP01T10",
+        "Song": "On and On (We Are Spacemen)",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-10 - On and On (We Are Spacemen).mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "10",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP01T11",
+        "Song": "Trouble",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-11 - Trouble.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "11",
+        "Side": "Side 2"
+    },
+    {
+        "SongID": "LP01T12",
+        "Song": "Anyone Can Do This",
+        "Path": "assets/sounds/songs/The Leptons - 2012 - Hurricane Gospel - 1-12 - Anyone Can Do This.mp3",
+        "Album": "Hurricane Gospel",
+        "Year": "2012",
+        "Track": "12",
+        "Side": "Side 2"
+    }
+]

@@ -1,0 +1,47 @@
+body{
+  background-color: black;
+  filter: blur(1px);
+}
+h1{
+  font-family: Courier;
+  color: magenta;
+  filter: drop-shadow(2px 2px yellow);
+  font-size: 3rem;
+}
+h2{
+  font-family: Courier;
+  color: lime;
+  vertical-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+}
+h3{
+  font-family: Courier;
+  color: orange;
+  vertical-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+}
+audio {
+  filter: invert(100%) contrast(200%);
+}
+.parent {
+  margin-left: 20px;
+  display: flex;
+  align-items: left;
+}
+.child-left {
+  display: inline;
+  align-content: center;
+  text-wrap: nowrap;
+}
+.child-right {
+  display: inline;
+  align-content: center;
+}
+.audio-control-button {
+  background: transparent;
+  border: none;
+}
