@@ -1,6 +1,10 @@
 //constants
-const songMap = new Map()
+let songMap = new Map()
 const audioList = []
+const deadAir = new Audio();
+let nowPlaying = new Audio()
+let isPaused = 0;
+let shuffleOn = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
   loadSongs();
@@ -8,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadSongs() {
     const container = document.getElementById('song-list');
+    let song_order = 0;
 
     fetch('./songs.json')
     .then(response => response.json()) // Parse the response text as JSON
@@ -30,10 +35,11 @@ function loadSongs() {
                         .set('song_album', song_album)
                         .set('song_year', song_year)
                         .set('song_tracknumber', song_tracknumber)
-                        .set('song_side', song_side);
+                        .set('song_side', song_side)
+                        .set('song_order', song_order);
 
             // create audio object
-            const song_audio_id = `${song_title}-audio`;
+            const song_audio_id = `${song_id}`;
             const song_audio = new Audio(song_path);
             song_audio.id = song_audio_id;
             song_audio.load();
@@ -140,6 +146,8 @@ function loadSongs() {
             // store in map
             songMap.set(song_id, songMetadataMap);
             
+            //iterate song order counter
+            song_order += 1;
         })
     })
     .catch(error => console.error('Error loading JSON data:', error));
@@ -147,36 +155,246 @@ function loadSongs() {
 }
 
 function stopEverything() {
+    console.log('Trying to stop everything.')
     for (let i = 0; i < audioList.length; i++) {
-        audioList[i].pause();
+        stopSong(audioList[i].id);
     }
 }
 
 function allAudioStates() {
     for (let i = 0; i < audioList.length; i++) {
-        console.log(`${audioList[i]}}`)
-        console.log(`audioList[i].paused - ${audioList[i].paused}`)
-        console.log(`audioList[i].ended - ${audioList[i].ended}`)
-        console.log(`audioList[i].currentTime - ${audioList[i].currentTime}`)
+        let song_id = audioList[i].id;
+        let song_metadata = songMap.get(song_id);
+        let song_title = song_metadata.get("song_title");
+        console.log(`${song_title} (${song_id}): paused (${audioList[i].paused}); ended (${audioList[i].ended}); currentTime (${audioList[i].currentTime});`);
+    }
+}
+
+function audioState(song_id) {
+    if (song_id.length > 0) {
+        let song_metadata = songMap.get(song_id);
+        let song_title = song_metadata.get("song_title");
+        let song_audio = song_metadata.get("song_audio");
+        console.log(`${song_title} (${song_id}): paused (${song_audio.paused}); ended (${song_audio.ended}); currentTime (${song_audio.currentTime});`);
+    }
+}
+
+function playSongs(){
+    if(nowPlaying.id.trim().length === 0){
+        let next_song_id = Array.from(songMap.keys())[0];
+        playSong(next_song_id);
+    }
+    updateCurrentState();
+}
+
+function pauseSongs(){
+    updateCurrentState();
+    nowPlaying.pause();
+    updateCurrentState();
+}
+
+function updateCurrentState(){
+    updateNowPlaying();
+    updateMainPlayer();
+    setControlIcons();
+}
+
+function updateNowPlaying(){
+    console.log(`function updateNowPlaying`)
+    let somethingPlaying = 0;
+    let song_metadata = new Map();
+    let song_title = "nothing";
+    if (nowPlaying.id.trim().length > 0){
+        song_metadata = songMap.get(nowPlaying.id);
+        song_title = song_metadata.get("song_title");
+    }
+    for (let i = 0; i < audioList.length; i++) {
+        let song = audioList[i];
+        // console.log(song);
+        if (song.id.length > 0) {
+            song_id = song.id;
+            song_metadata = songMap.get(song_id);
+            song_title = song_metadata.get("song_title");
+            song_paused = song.paused;
+            song_ended = song.ended;
+            song_current_time = song.currentTime;
+        }
+        if (somethingPlaying > 0) {
+            if (!song_paused && !song_ended) {
+                song.pause();
+            } else if (song_paused && !song_ended && song_current_time > 0) {
+                song.currentTime = 0;
+            }
+        } else if (!song_paused && !song_ended) {
+            nowPlaying = song;
+            somethingPlaying = 1;
+            isPaused = 0;
+        } else if (song_paused && !song_ended && song_current_time > 0) {
+            nowPlaying = song;
+            somethingPlaying = 1;
+            isPaused = 1;
+        } else {
+            nowPlaying = deadAir;
+        }
+    }
+    if (nowPlaying.id.trim().length > 0){
+        song_metadata = new Map();
+        song_metadata = songMap.get(nowPlaying.id);
+        song_title = song_metadata.get("song_title");
+    }
+    console.log(`Now playing '${song_title}'`);
+}
+
+function updateMainPlayer(){
+    console.log(`function updateMainPlayer`);
+    let main_player_button_1 = document.getElementById("main-player-button-1");
+    let main_player_text = document.getElementById("main-player-text");
+    if(nowPlaying.id.trim().length === 0){
+        main_player_text.textContent = "Nothing is playing right now.";
+        console.log(`Set display to "Nothing is playing right now."`);
+        main_player_button_1.innerHTML = `<img src="assets/images/icons/play_button_40.svg" alt="Play">`;
+        main_player_button_1.classList.remove('pause-button');
+        main_player_button_1.classList.add('play-button');
+        main_player_button_1.setAttribute('onclick', `playSongs()`);
+    } else if(nowPlaying.id.trim().length > 0 && isPaused === 1){
+        let song_metadata = songMap.get(nowPlaying.id);
+        let song_title = song_metadata.get("song_title");
+        main_player_text.textContent = song_title;
+        console.log(`Set display to '${song_title}'`);
+        main_player_button_1.innerHTML = `<img src="assets/images/icons/play_button_40.svg" alt="Resume Song">`;
+        main_player_button_1.classList.remove('pause-button');
+        main_player_button_1.classList.add('play-button');
+        main_player_button_1.setAttribute('onclick', `playSong('${nowPlaying.id}')`);
+        console.log(`'${song_title}' paused, showing play button.`);
+    } else {
+        let song_metadata = songMap.get(nowPlaying.id);
+        let song_title = song_metadata.get("song_title");
+        main_player_text.textContent = song_title;
+        console.log(`Set display to '${song_title}'`);
+        main_player_button_1.innerHTML = `<img src="assets/images/icons/pause_button_40.svg" alt="Pause">`;
+        main_player_button_1.classList.remove('main-play-button');
+        main_player_button_1.classList.add('main-pause-button');
+        main_player_button_1.setAttribute('onclick', `pauseSongs()`);
+        console.log(`'${song_title}' playing, showing pause button.`);
+    }
+
+    let main_player_shuffle_button = document.getElementById("main-player-shuffle-button");
+    if (shuffleOn === 0) {
+        main_player_shuffle_button.classList.remove('main-unshuffle-button');
+        main_player_shuffle_button.classList.add('main-shuffle-button');
+        main_player_shuffle_button.setAttribute('onclick', `shuffleSongs()`);
+    } else if (shuffleOn === 1) {
+        main_player_shuffle_button.classList.remove('main-shuffle-button');
+        main_player_shuffle_button.classList.add('main-unshuffle-button');
+        main_player_shuffle_button.setAttribute('onclick', `unshuffleSongs()`);
     }
 }
 
 function playSong(song_id) {
-    stopEverything();
-    let song_audio = songMap.get(song_id).get("song_audio");
+    let song_metadata = songMap.get(song_id);
+    let song_title = song_metadata.get("song_title");
+    console.log(`Trying to play '${song_title}'`);
+    console.log(!nowPlaying.id.trim().length === 0);
+    console.log(song_id !== nowPlaying.id.trim());
+    if (nowPlaying.id.trim().length !== 0 && song_id !== nowPlaying.id.trim()){
+        stopSong(nowPlaying.id.trim());
+    }
+    let song_audio = song_metadata.get("song_audio");
     song_audio.play();
-    console.log(`Now playing '${songMap.get(song_id).get("song_title")}'`);
-    setControlIcons();
+    updateCurrentState();
 }
 
 function pauseSong(song_id) {
-    let song_audio = songMap.get(song_id).get("song_audio");
+    let song_metadata = songMap.get(song_id);
+    let song_title = song_metadata.get("song_title");
+    console.log(`Trying to pause '${song_title}'`);
+    let song_audio = song_metadata.get("song_audio");
     song_audio.pause();
-    console.log(`Paused '${songMap.get(song_id).get("song_title")}'`);
-    setControlIcons();
+    updateCurrentState();
+}
+
+function stopSong(song_id){
+    if (song_id.length > 0) {
+        let song_metadata = songMap.get(song_id);
+        let song_title = song_metadata.get("song_title");
+        console.log(`Trying to stop '${song_title}'`);
+        let song_audio = song_metadata.get("song_audio");
+        song_audio.pause();
+        song_audio.currentTime = 0;
+        updateCurrentState();
+    }
+}
+
+function previousSong(){
+    const currentSongIndex = Array.from(songMap.keys()).indexOf(nowPlaying.id);
+    const previousSongIndex = currentSongIndex - 1;
+    if (previousSongIndex >= 0) {
+        let previous_song_id = Array.from(songMap.keys())[previousSongIndex];
+        playSong(previous_song_id);
+    }
+}
+
+function nextSong(){
+    const lastSongIndex = songMap.size - 1;
+    const currentSongIndex = Array.from(songMap.keys()).indexOf(nowPlaying.id);
+    const nextSongIndex = currentSongIndex + 1;
+    if (nextSongIndex <= lastSongIndex) {
+        let next_song_id = Array.from(songMap.keys())[nextSongIndex];
+        playSong(next_song_id);
+    }
+}
+
+function shuffleSongs() {
+    console.log('shuffling...');
+    console.log(songMap);
+    let copyOfSongMap = new Map(songMap);
+    let randomizedSongMap = new Map();
+    let songsInOrder = Array.from(songMap.keys());
+    let songsUpperBound = songsInOrder.length;
+    let countDown = songsUpperBound - 1;
+    for (let i = 0; i < songsUpperBound; i++) {
+        randPicker = Math.floor(Math.random() * (countDown - 0 + 1)) + 0;
+        let get_song_id = Array.from(copyOfSongMap.keys())[randPicker];
+        let get_song_metadata = copyOfSongMap.get(get_song_id);
+        randomizedSongMap.set(get_song_id, get_song_metadata);
+        copyOfSongMap.delete(get_song_id);
+        countDown -= 1;
+    }
+    let songsRandomOrder = Array.from(randomizedSongMap.keys());
+    songMap = randomizedSongMap;
+    console.log(songMap);
+    shuffleOn = 1;
+    playSongs();
+}
+
+function unshuffleSongs() {
+    console.log('unshuffling...');
+    console.log(songMap);
+    let copyOfSongMap = new Map(songMap);
+    let unshuffledSongMap = new Map();
+    let songsUpperBound = Array.from(songMap.keys()).length;
+    let unfoundUpperbound = songsUpperBound;
+    for (let i = 0; i < songsUpperBound; i++) {
+        for (let j = 0; j < unfoundUpperbound; j++) {
+            let get_song_id = Array.from(copyOfSongMap.keys())[j];
+            let get_song_metadata = copyOfSongMap.get(get_song_id);
+            let song_order = get_song_metadata.get('song_order');
+            if ( song_order === i) {
+                unshuffledSongMap.set(get_song_id, get_song_metadata);
+                copyOfSongMap.delete(get_song_id);
+                unfoundUpperbound -= 1;
+                continue;
+            }
+        }
+    }
+    songMap = unshuffledSongMap;
+    console.log(songMap);
+    shuffleOn = 0;
+    updateCurrentState();
 }
 
 function setControlIcons() {
+    console.log(`function setControlIcons`);
     for (const [song_id, songMetadataMap] of songMap) {
         let song_control_button_1_id = songMetadataMap.get("song_control_button_1_id");
         let song_control_button_1 = songMetadataMap.get("song_control_button_1");
@@ -184,6 +402,7 @@ function setControlIcons() {
         let song_controls = songMetadataMap.get("song_controls");
         let song_audio = songMetadataMap.get("song_audio");
         let song_div = songMetadataMap.get("song_div");
+        let song_title = songMetadataMap.get("song_title");
         if (song_control_button_1.classList.contains('play-button')) {
             if (!song_audio.paused && !song_audio.ended) {
                 // change to pause button
@@ -196,6 +415,7 @@ function setControlIcons() {
                 song_controls.appendChild(song_control_button_1);
                 songMetadataMap.set('song_control_button_1', song_control_button_1)
                 songMap.set(song_id, songMetadataMap);
+                console.log(`set '${song_title}' button to pause.`);
             } else {
                 // do nothing
             }
@@ -214,6 +434,7 @@ function setControlIcons() {
                 song_controls.appendChild(song_control_button_1);
                 songMetadataMap.set('song_control_button_1', song_control_button_1)
                 songMap.set(song_id, songMetadataMap);
+                console.log(`set '${song_title}' button to play.`);
             }
         }
     }
