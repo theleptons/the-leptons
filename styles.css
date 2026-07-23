@@ -1,53 +1,97 @@
 body{
   background-color: black;
 }
-h1{
-  
-  font-family: Courier;
-  color: magenta;
-  filter: drop-shadow(2px 2px yellow) blur(1px);
-  font-size: 3rem;
+.welcome-box {
+  max-width: 32rem;
+  display: flex;
+  width: 100%;
 }
-h2{
+.welcome-box-text {
+  max-width: 22rem;
+}
+.welcome-box-image {
+  flex: 1;
+  background-image: url("assets/images/logos/recycled_heart.png");
+  filter: invert(37%) sepia(85%) saturate(7468%) hue-rotate(295deg) brightness(113%) contrast(129%) drop-shadow(0 0 10px #ff00ff);
+  background-size: auto 5rem;
+  background-repeat: no-repeat;
+  background-position: right center; 
+}
+h2 {
   text-shadow: 0 0 10px #00ff00;
   font-family: Courier;
   color: lime;
   vertical-align: center;
   padding: 0;
   margin: 0;
-  font-size: 2rem;
-  filter: blur(1px);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
-h3{
+.album-title-text{
+  font-family: Courier;
+  color: magenta;
+  filter: drop-shadow(2px 2px yellow) blur(1px);
+  font-size: 3rem;
+  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.song-title-left {
+  text-shadow: 0 0 10px #00ff00;
+  font-family: Courier;
+  color: lime;
+  vertical-align: bottom;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  align-content: left;
+  display: inline;
+}
+.album-side-title-text{
+  text-shadow: 0 0 10px orange;
   font-family: Courier;
   color: orange;
-  vertical-align: center;
+  vertical-align: bottom;
   padding: 0;
   margin: 0;
   font-size: 2rem;
-  filter: blur(1px);
 }
 audio {
   filter: invert(100%) contrast(200%);
 }
-.parent {
-  margin-left: 20px;
+.song-parent {
+  margin: 0;
+  padding: 0;
+  margin-left: 2rem;
   display: flex;
   align-items: left;
+  vertical-align: bottom;
+  max-width: 480px;
 }
-.child-left {
-  text-shadow: 0 0 10px #00ff00;
+.play-button {
+  background-color: transparent;
+  background-image: url("assets/images/icons/play_button.svg");
+  background-size: 1.5rem 1.5rem;
+  height: 1.5rem;  
+  width: 1.5rem;
   display: inline;
-  align-content: center;
-  text-wrap: nowrap;
-}
-.child-right {
-  display: inline;
-  align-content: center;
-}
-.audio-control-button {
-  background: transparent;
+  vertical-align: text-bottom;
   border: none;
+  padding: 0;
+  margin-bottom: 0.1rem;
+}
+.pause-button {
+  background-color: transparent;
+  background-image: url("assets/images/icons/pause_button.svg");
+  background-size: 1.5rem 1.5rem;
+  height: 1.5rem;  
+  width: 1.5rem;
+  display: inline;
+  vertical-align: text-bottom;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.1rem;
 }
 .main-player-box{
   border: 1px outset #3d3f41;

@@ -7,7 +7,7 @@ let isPaused = 0;
 let shuffleOn = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
-  loadSongs();
+    loadSongs();
 });
 
 function loadSongs() {
@@ -46,6 +46,10 @@ function loadSongs() {
             songMetadataMap.set('song_audio_id', song_audio_id)
                 .set('song_audio', song_audio);
             audioList.push(song_audio)
+            song_audio.addEventListener('ended', function() {
+                console.log(`'${song_title} ended.`);    
+                nextSong();
+            });
 
             // create album div object if it doesn't exist
             const album_title = song_album;
@@ -58,11 +62,8 @@ function loadSongs() {
                 album_div = document.createElement('div');
                 album_div.id = album_div_id;
                 album_title_header.id = album_title_header_id;
-                album_title_header.innerHTML = `
-                    <h1>
-                        '${album_title}'
-                    </h1>
-                `;
+                album_title_header.classList.add('album-title-text');
+                album_title_header.textContent = `'${album_title}'`;
                 album_div.appendChild(album_title_header);
                 container.appendChild(album_div);
             } else {
@@ -80,17 +81,14 @@ function loadSongs() {
             const album_side_div_id = `${album_title}-${album_side_title}-div`;
             // const album_side_div = document.createElement('div');
             const album_side_title_header_id =  `${album_title}-${album_side_title}-header`;
-            let album_side_title_header = document.createElement('h1');
+            let album_side_title_header = document.createElement('h3');
             let album_side_div = document.getElementById(album_side_div_id);
             if (!album_side_div) {
                 album_side_div = document.createElement('div');
                 album_side_div.id = album_side_div_id;
                 album_side_title_header.id = album_side_title_header_id;
-                album_side_title_header.innerHTML = `
-                    <h3>
-                        '${album_side_title}'
-                    </h3>
-                `;
+                album_side_title_header.classList.add('album-side-title-text');
+                album_side_title_header.textContent = `'${album_side_title}'`;
                 album_side_div.appendChild(album_side_title_header);
                 album_div.appendChild(album_side_div);
             } else {
@@ -107,7 +105,7 @@ function loadSongs() {
             const song_div_id = `${song_title}-div`
             const song_div = document.createElement('div');
             song_div.id = song_div_id
-            song_div.classList.add('parent');
+            song_div.classList.add('song-parent');
             album_side_div.appendChild(song_div)
             songMetadataMap.set('song_div_id', song_div_id)
                 .set('song_div', song_div)
@@ -115,32 +113,21 @@ function loadSongs() {
             // create song title header and control objects
             const song_title_text_id = `${song_title}-title-text`
             const song_title_text = document.createElement('div');
-            song_title_text.classList.add('child-left');
-            song_title_text.innerHTML = `
-                <h2>${song_title}</h2>
-            `;
-            const song_control_id = `${song_title}-control`
-            const song_controls = document.createElement('div');
-            song_controls.classList.add('child-right');
-            song_controls.id = song_control_id
+            song_title_text.classList.add('song-title-left');
+            song_title_text.textContent = `${song_title}`;
             // add first button
             const song_control_button_1_id = `${song_title}-control-button-1`
             const song_control_button_1 = document.createElement('button');
-            song_control_button_1.innerHTML = `
-                <img src="assets/images/icons/play_button.svg" alt="Play">
-            `;
             song_control_button_1.classList.add('audio-control-button')
             song_control_button_1.classList.add('play-button');
             song_control_button_1.setAttribute('onclick', `playSong('${song_id}')`);
             song_control_button_1.id = song_control_button_1_id
-            song_controls.appendChild(song_control_button_1);
+            //song_controls.appendChild(song_control_button_1);
+            song_title_text.appendChild(song_control_button_1);
             song_div.appendChild(song_title_text);
-            song_div.appendChild(song_controls);
 
             songMetadataMap.set('song_title_text_id', song_title_text_id)
                 .set('song_title_text', song_title_text)
-                .set('song_control_id', song_control_id)
-                .set('song_controls', song_controls)
                 .set('song_control_button_1',song_control_button_1);
 
             // store in map
@@ -202,11 +189,13 @@ function updateCurrentState(){
 function updateNowPlaying(){
     console.log(`function updateNowPlaying`)
     let somethingPlaying = 0;
+    let now_playing_song_metadata = new Map();
+    let now_playing_song_title = "nothing";
     let song_metadata = new Map();
     let song_title = "nothing";
     if (nowPlaying.id.trim().length > 0){
-        song_metadata = songMap.get(nowPlaying.id);
-        song_title = song_metadata.get("song_title");
+        now_playing_song_metadata = songMap.get(nowPlaying.id);
+        now_playing_song_title = `'${now_playing_song_metadata.get("song_title")}'`;
     }
     for (let i = 0; i < audioList.length; i++) {
         let song = audioList[i];
@@ -238,11 +227,13 @@ function updateNowPlaying(){
         }
     }
     if (nowPlaying.id.trim().length > 0){
-        song_metadata = new Map();
-        song_metadata = songMap.get(nowPlaying.id);
-        song_title = song_metadata.get("song_title");
+        now_playing_song_metadata = new Map();
+        now_playing_song_metadata = songMap.get(nowPlaying.id);
+        now_playing_song_title = `'${now_playing_song_metadata.get("song_title")}'`;
+    } else {
+        now_playing_song_title = "nothing."
     }
-    console.log(`Now playing '${song_title}'`);
+    console.log(`Now playing ${now_playing_song_title}`);
 }
 
 function updateMainPlayer(){
@@ -253,8 +244,8 @@ function updateMainPlayer(){
         main_player_text.textContent = "Nothing is playing right now.";
         console.log(`Set display to "Nothing is playing right now."`);
         main_player_button_1.innerHTML = `<img src="assets/images/icons/play_button_40.svg" alt="Play">`;
-        main_player_button_1.classList.remove('pause-button');
-        main_player_button_1.classList.add('play-button');
+        main_player_button_1.classList.remove('main-pause-button');
+        main_player_button_1.classList.add('main-play-button');
         main_player_button_1.setAttribute('onclick', `playSongs()`);
     } else if(nowPlaying.id.trim().length > 0 && isPaused === 1){
         let song_metadata = songMap.get(nowPlaying.id);
@@ -262,8 +253,8 @@ function updateMainPlayer(){
         main_player_text.textContent = song_title;
         console.log(`Set display to '${song_title}'`);
         main_player_button_1.innerHTML = `<img src="assets/images/icons/play_button_40.svg" alt="Resume Song">`;
-        main_player_button_1.classList.remove('pause-button');
-        main_player_button_1.classList.add('play-button');
+        main_player_button_1.classList.remove('main-pause-button');
+        main_player_button_1.classList.add('main-play-button');
         main_player_button_1.setAttribute('onclick', `playSong('${nowPlaying.id}')`);
         console.log(`'${song_title}' paused, showing play button.`);
     } else {
@@ -294,8 +285,6 @@ function playSong(song_id) {
     let song_metadata = songMap.get(song_id);
     let song_title = song_metadata.get("song_title");
     console.log(`Trying to play '${song_title}'`);
-    console.log(!nowPlaying.id.trim().length === 0);
-    console.log(song_id !== nowPlaying.id.trim());
     if (nowPlaying.id.trim().length !== 0 && song_id !== nowPlaying.id.trim()){
         stopSong(nowPlaying.id.trim());
     }
@@ -328,6 +317,7 @@ function stopSong(song_id){
 function previousSong(){
     const currentSongIndex = Array.from(songMap.keys()).indexOf(nowPlaying.id);
     const previousSongIndex = currentSongIndex - 1;
+    stopSong(nowPlaying.id);
     if (previousSongIndex >= 0) {
         let previous_song_id = Array.from(songMap.keys())[previousSongIndex];
         playSong(previous_song_id);
@@ -338,6 +328,7 @@ function nextSong(){
     const lastSongIndex = songMap.size - 1;
     const currentSongIndex = Array.from(songMap.keys()).indexOf(nowPlaying.id);
     const nextSongIndex = currentSongIndex + 1;
+    stopSong(nowPlaying.id);
     if (nextSongIndex <= lastSongIndex) {
         let next_song_id = Array.from(songMap.keys())[nextSongIndex];
         playSong(next_song_id);
@@ -398,8 +389,6 @@ function setControlIcons() {
     for (const [song_id, songMetadataMap] of songMap) {
         let song_control_button_1_id = songMetadataMap.get("song_control_button_1_id");
         let song_control_button_1 = songMetadataMap.get("song_control_button_1");
-        let song_control_id = songMetadataMap.get("song_control_id");
-        let song_controls = songMetadataMap.get("song_controls");
         let song_audio = songMetadataMap.get("song_audio");
         let song_div = songMetadataMap.get("song_div");
         let song_title = songMetadataMap.get("song_title");
@@ -412,7 +401,6 @@ function setControlIcons() {
                 song_control_button_1.classList.remove('play-button');
                 song_control_button_1.classList.add('pause-button');
                 song_control_button_1.setAttribute('onclick', `pauseSong('${song_id}')`);
-                song_controls.appendChild(song_control_button_1);
                 songMetadataMap.set('song_control_button_1', song_control_button_1)
                 songMap.set(song_id, songMetadataMap);
                 console.log(`set '${song_title}' button to pause.`);
@@ -431,7 +419,6 @@ function setControlIcons() {
                 song_control_button_1.classList.remove('pause-button');
                 song_control_button_1.classList.add('play-button');
                 song_control_button_1.setAttribute('onclick', `playSong('${song_id}')`);
-                song_controls.appendChild(song_control_button_1);
                 songMetadataMap.set('song_control_button_1', song_control_button_1)
                 songMap.set(song_id, songMetadataMap);
                 console.log(`set '${song_title}' button to play.`);
