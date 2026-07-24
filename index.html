@@ -10,9 +10,19 @@
     <h2 class="welcome-box-text">Hello,<br>We are The Leptons.<br> This is our music.</h2>
     <div class="welcome-box-image"></div>
   </div>
+
   <div class="main-player-box" id="main-player">
     <div class="main-player-text-display-box" id="main-player-text-display-box">
       <p class="main-player-text" id="main-player-text">Nothing is playing right now.</p>
+      <div class="main-player-progress-bar" id="main-player-progress-bar">
+        <div class="main-player-duration-box" id="main-player-duration-box">
+          <div class="main-player-current-time-box" id="main-player-current-time-box">
+          </div>
+        </div>
+        <div class="main-player-duration-text" id="main-player-duration-text">
+          0:00/0:00
+        </div>
+      </div>
     </div>
     <div class="main-player-controls-box" id="main-player-controls">
       <button class="audio-control-button main-player-button main-play-button" onclick="playSongs()" id="main-player-button-1">
@@ -32,6 +42,7 @@
       </button>     
     </div>
   </div>
+  <div class="album-list" id="album-list"></div>
   <div id="song-list"></div>
 </body>
 </html>

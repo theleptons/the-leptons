@@ -1,0 +1,51 @@
+[
+    {
+        "AlbumID": "LP03",
+        "Title": "The Leptons",
+        "ReleaseType": "Album",
+        "ReleaseDate": "46304",
+        "Cover": "assets/images/artwork/covers/the-leptons.jpg"
+    },
+    {
+        "AlbumID": "S004",
+        "Title": "Totally Fucked",
+        "ReleaseType": "Single",
+        "ReleaseDate": "45639",
+        "Cover": "assets/images/artwork/covers/totally_fucked.jpg"
+    },
+    {
+        "AlbumID": "S003",
+        "Title": "Be Kind Rewind",
+        "ReleaseType": "Single",
+        "ReleaseDate": "45436",
+        "Cover": "assets/images/artwork/covers/be_kind_rewind.jpg"
+    },
+    {
+        "AlbumID": "S002",
+        "Title": "Baby Boy",
+        "ReleaseType": "Single",
+        "ReleaseDate": "43816",
+        "Cover": "assets/images/artwork/covers/baby_boy.jpg"
+    },
+    {
+        "AlbumID": "S001",
+        "Title": "Color in the Lines",
+        "ReleaseType": "Single",
+        "ReleaseDate": "43791",
+        "Cover": "assets/images/artwork/covers/color_in_the_lines.jpg"
+    },
+    {
+        "AlbumID": "LP02",
+        "Title": "Pseudonym",
+        "ReleaseType": "Album",
+        "ReleaseDate": "43392",
+        "Cover": "assets/images/artwork/covers/pseudonym.jpg"
+    },
+    {
+        "AlbumID": "LP01",
+        "Title": "Hurricane Gospel",
+        "ReleaseType": "Album",
+        "ReleaseDate": "41009",
+        "Cover": "assets/images/artwork/covers/hurricane_gospel.jpg"
+    }
+]

@@ -7,14 +7,15 @@ let isPaused = 0;
 let shuffleOn = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadSongs();
+    loadData();
 });
 
-function loadSongs() {
+function loadData() {
     const container = document.getElementById('song-list');
     let song_order = 0;
 
-    fetch('./songs.json')
+    // load songs
+    fetch('./assets/data/songs.json')
     .then(response => response.json()) // Parse the response text as JSON
     .then(data => {
 
@@ -28,14 +29,18 @@ function loadSongs() {
             const song_path = item.Path;
             const song_album = item.Album;
             const song_year = item.Year;
-            const song_tracknumber = item.Track;
+            const song_track_number = item.Track;
             const song_side = item.Side;
+            const song_album_id = item.AlbumID;
+            const song_release_type = item.ReleaseType;
             songMetadataMap.set('song_title', song_title)
                         .set('song_path', song_path)
                         .set('song_album', song_album)
                         .set('song_year', song_year)
-                        .set('song_tracknumber', song_tracknumber)
+                        .set('song_track_number', song_track_number)
                         .set('song_side', song_side)
+                        .set('song_release_type', song_release_type)
+                        .set('song_album_id', song_album_id)
                         .set('song_order', song_order);
 
             // create audio object
@@ -50,31 +55,45 @@ function loadSongs() {
                 console.log(`'${song_title} ended.`);    
                 nextSong();
             });
+            song_audio.addEventListener("timeupdate", (event) => {
+                const currentTime = song_audio.currentTime;
+                const duration = song_audio.duration;
+                updateProgressBar(currentTime, duration);
+            });
 
             // create album div object if it doesn't exist
             const album_title = song_album;
             const album_div_id = `${album_title}-div`;
             // album_div = document.createElement('div');
             const album_title_header_id =  `${album_title}-header`;
-            let album_title_header = document.createElement('h1');
+            let album_title_header_box = document.createElement('div');
+            album_title_header_box.classList.add('album-title-header-box');
+            let album_title_header_text = document.createElement('h1');
             let album_div = document.getElementById(album_div_id);
             if (!album_div) {
                 album_div = document.createElement('div');
                 album_div.id = album_div_id;
-                album_title_header.id = album_title_header_id;
-                album_title_header.classList.add('album-title-text');
-                album_title_header.textContent = `'${album_title}'`;
-                album_div.appendChild(album_title_header);
+                album_title_header_text.id = album_title_header_id;
+                album_title_header_text.classList.add('album-title-text');
+                album_title_header_text.textContent = `'${album_title}'`;
+                album_title_header_box.appendChild(album_title_header_text);
+                if (song_release_type === 'Album') {
+                    album_year_div = document.createElement('div');
+                    album_year_div.classList.add('album-year-text');
+                    album_year_div.textContent = `${song_year}`;
+                    album_title_header_box.appendChild(album_year_div);
+                }
+                album_div.appendChild(album_title_header_box);
                 container.appendChild(album_div);
             } else {
                 album_div = document.getElementById(album_div_id);
-                album_title_header = document.getElementById(album_title_header_id);
+                album_title_header_text = document.getElementById(album_title_header_id);
             }
             songMetadataMap.set('album_title', album_title)
                 .set('album_div_id', album_div_id)
                 .set('album_div', album_div)
                 .set('album_title_header_id', album_title_header_id)
-                .set('album_title_header', album_title_header)
+                .set('album_title_header', album_title_header_text)
 
             // create album side object if it doesn't exist
             const album_side_title = `${song_side}`;
@@ -139,6 +158,62 @@ function loadSongs() {
     })
     .catch(error => console.error('Error loading JSON data:', error));
     console.log(songMap)
+
+    // load events
+    const song_duration_bar = document.getElementById('main-player-duration-box');
+    song_duration_bar.addEventListener('click', function(event) {
+        const x = event.offsetX;
+        const y = event.offsetY;
+        jumpTo(x/384);
+    });
+
+    //load albums
+    fetch('./assets/data/albums.json')
+    .then(response => response.json()) // Parse the response text as JSON
+    .then(data => {
+
+        const album_covers_box = document.getElementById('album-list');
+        // Loop through each object inside the JSON array
+        data.forEach(item => {   
+            const albumMetadataMap = new Map();
+            const album_id = item.AlbumID;
+            const album_title = item.Title;
+            const album_release_type = item.ReleaseType;
+            const album_release_date = item.ReleaseDate;
+            const album_cover = item.Cover;
+            albumMetadataMap.set("album_id", album_id)
+                .set("album_title", album_title)
+                .set("album_release_type", album_release_type)
+                .set("album_release_date", album_release_date)
+                .set("album_cover", album_cover);
+
+            //  find song 1 on album
+            let songsUpperBound = Array.from(songMap.keys()).length;
+            let song_metadata_lookup = new Map();
+            let first_song_id = '';
+            for (let i = 0; i < songsUpperBound; i++) {
+                let song_id_lookup = Array.from(songMap.keys())[i];
+                let song_metadata_lookup = songMap.get(song_id_lookup);
+                if (song_metadata_lookup.get('song_album_id') === album_id && song_metadata_lookup.get('song_track_number') === '1') {
+                    first_song_id = song_metadata_lookup.get('song_audio_id');
+                }
+            }
+
+
+            const album_cover_image = document.createElement('img');
+            const album_cover_image_id = `${album_id}_cover`;
+            album_cover_image.classList.add('album-cover-preview');
+            album_cover_image.id = album_cover_image_id;
+            album_cover_image.src = album_cover;
+            album_cover_image.alt = `${album_title} cover`;
+            album_covers_box.appendChild(album_cover_image);
+            album_cover_image.addEventListener('click', function() {
+                playSong(first_song_id);
+            });
+        })
+    })
+    .catch(error => console.error('Error loading JSON data:', error));
+
 }
 
 function stopEverything() {
@@ -184,6 +259,22 @@ function updateCurrentState(){
     updateNowPlaying();
     updateMainPlayer();
     setControlIcons();
+}
+
+function updateProgressBar(currentTime, duration) {
+    let currentTimeText = `${Math.floor(currentTime/60)}:${(Math.floor(currentTime) % 60).toString().padStart(2, '0')}`;
+    let durationText = `${Math.floor(duration/60)}:${(Math.floor(duration) % 60).toString().padStart(2, '0')}`;
+    let progressText = `${currentTimeText}/${durationText}`;
+    let progressPercent = currentTime/duration;
+    let progressBarWidth = `${24 * progressPercent}rem`;
+    const current_time_box = document.getElementById("main-player-current-time-box");
+    current_time_box.style.width = progressBarWidth;
+    const current_time_text = document.getElementById("main-player-duration-text");
+    if (progressPercent === 1) {
+        current_time_text.textContent = '0:00/0:00';
+    } else {
+        current_time_text.textContent = progressText;
+    }
 }
 
 function updateNowPlaying(){
@@ -247,6 +338,8 @@ function updateMainPlayer(){
         main_player_button_1.classList.remove('main-pause-button');
         main_player_button_1.classList.add('main-play-button');
         main_player_button_1.setAttribute('onclick', `playSongs()`);
+        const current_time_text = document.getElementById("main-player-duration-text");
+        current_time_text.textContent = '0:00/0:00';
     } else if(nowPlaying.id.trim().length > 0 && isPaused === 1){
         let song_metadata = songMap.get(nowPlaying.id);
         let song_title = song_metadata.get("song_title");
@@ -333,6 +426,15 @@ function nextSong(){
         let next_song_id = Array.from(songMap.keys())[nextSongIndex];
         playSong(next_song_id);
     }
+}
+
+function jumpTo(positionPercentage){
+    let song_metadata = songMap.get(nowPlaying.id);
+    let song_audio = song_metadata.get("song_audio");
+    let song_duration = song_audio.duration;
+    let jump_to = song_duration * positionPercentage;
+    console.log(`Trying to jump to ${jump_to}.`);
+    song_audio.currentTime = jump_to;
 }
 
 function shuffleSongs() {

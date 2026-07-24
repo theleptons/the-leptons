@@ -27,14 +27,53 @@ h2 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
+.album-list{
+  white-space: nowrap; 
+  display: inline-block;
+  width: 32rem;
+  height: 7rem;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  background-color: black;
+  scrollbar-color: #3d3f41 black;
+  scrollbar-width: thin;
+  margin-top: 5px;
+}
+.album-cover-preview{
+  object-fit: contain;
+  width: 6rem;
+  height: 6rem;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.album-title-header-box{
+  overflow: auto;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  display: inline-flex;
+  text-align: bottom;
+  vertical-align: bottom;
+}
 .album-title-text{
   font-family: Courier;
   color: magenta;
   filter: drop-shadow(2px 2px yellow) blur(1px);
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  display: inline;
+}
+.album-year-text{
+  font-family: Courier;
+  font-weight: bold;
+  color: orange;
+  text-shadow: 0 0 10px orange;
+  text-align: bottom;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: flex-end;
 }
 .song-title-left {
   text-shadow: 0 0 10px #00ff00;
@@ -49,13 +88,14 @@ h2 {
   display: inline;
 }
 .album-side-title-text{
+  padding: 0;
+  margin: 0;
+  margin-left: 1rem;
   text-shadow: 0 0 10px orange;
   font-family: Courier;
   color: orange;
   vertical-align: bottom;
-  padding: 0;
-  margin: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 audio {
   filter: invert(100%) contrast(200%);
@@ -63,7 +103,7 @@ audio {
 .song-parent {
   margin: 0;
   padding: 0;
-  margin-left: 2rem;
+  margin-left: 3rem;
   display: flex;
   align-items: left;
   vertical-align: bottom;
@@ -97,7 +137,7 @@ audio {
   border: 1px outset #3d3f41;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 4px 3px #3f4141 inset;
-  max-width: 480px;
+  width: 30rem;
   background-color:#707770;  
   padding: 1rem;
   background-image: repeating-linear-gradient(36deg, rgba(255,255,255, 0.1), rgba(255,255,255, 0.1) 1px, transparent 0px, transparent 2px);
@@ -107,6 +147,36 @@ audio {
   border-radius: 0.5rem;
   background: #bbbbbb;
   padding: .05rem;
+  width: 30rem;
+}
+.main-player-progress-bar{
+  display: flex;
+}
+.main-player-duration-box{
+  position: relative;
+  background-color: #777777;
+  margin: 0.5rem;
+  height: 0.5rem;
+  width: 24rem;
+}
+.main-player-current-time-box{
+  position: absolute;
+  background-color: #555555;
+  margin: 0.5rem;
+  margin-top: 0rem;
+  margin-left: 0;
+  margin-right: 0;
+  height: 0.5rem;
+  max-width: 24rem;
+  width: 0rem;
+}
+.main-player-duration-text{
+  margin-top: 0.3rem;
+  display: flex;
+  max-width: 7rem;
+  width: auto;
+  font-family: Courier;
+  font-size: 0.75rem;
 }
 .main-player-text{
   font-family: Courier;
