@@ -73,17 +73,16 @@ function loadData() {
             let album_div = document.getElementById(album_div_id);
             if (!album_div) {
                 album_div = document.createElement('div');
+                album_div.classList.add('album-song-list-visible');
                 album_div.id = album_div_id;
                 album_title_header_text.id = album_title_header_id;
                 album_title_header_text.classList.add('album-title-text');
                 album_title_header_text.textContent = `'${album_title}'`;
                 album_title_header_box.appendChild(album_title_header_text);
-                if (song_release_type === 'Album') {
-                    album_year_div = document.createElement('div');
-                    album_year_div.classList.add('album-year-text');
-                    album_year_div.textContent = `${song_year}`;
-                    album_title_header_box.appendChild(album_year_div);
-                }
+                album_year_div = document.createElement('div');
+                album_year_div.classList.add('album-year-text');
+                album_year_div.textContent = `${song_year}`;
+                album_title_header_box.appendChild(album_year_div);
                 album_div.appendChild(album_title_header_box);
                 container.appendChild(album_div);
             } else {
@@ -122,26 +121,27 @@ function loadData() {
                 .set('album_side_title_header', album_side_title_header)
 
             // create song div object
-            const song_div_id = `${song_title}-div`
+            const song_div_id = `${song_title}-div`;
             const song_div = document.createElement('div');
-            song_div.id = song_div_id
+            song_div.id = song_div_id;
             song_div.classList.add('song-parent');
-            album_side_div.appendChild(song_div)
+            song_div.classList.add('song-list-visible');
+            album_side_div.appendChild(song_div);
             songMetadataMap.set('song_div_id', song_div_id)
-                .set('song_div', song_div)
+                .set('song_div', song_div);
 
             // create song title header and control objects
-            const song_title_text_id = `${song_title}-title-text`
+            const song_title_text_id = `${song_title}-title-text`;
             const song_title_text = document.createElement('div');
             song_title_text.classList.add('song-title-left');
             song_title_text.textContent = `${song_title}`;
             // add first button
-            const song_control_button_1_id = `${song_title}-control-button-1`
+            const song_control_button_1_id = `${song_title}-control-button-1`;
             const song_control_button_1 = document.createElement('button');
             song_control_button_1.classList.add('audio-control-button')
             song_control_button_1.classList.add('play-button');
             song_control_button_1.setAttribute('onclick', `playSong('${song_id}')`);
-            song_control_button_1.id = song_control_button_1_id
+            song_control_button_1.id = song_control_button_1_id;
             //song_controls.appendChild(song_control_button_1);
             song_title_text.appendChild(song_control_button_1);
             song_div.appendChild(song_title_text);
@@ -165,7 +165,9 @@ function loadData() {
     song_duration_bar.addEventListener('click', function(event) {
         const x = event.offsetX;
         const y = event.offsetY;
-        jumpTo(x/352);
+        let durationBar = document.getElementById("main-player-duration-box");
+        let durationBarWidth = durationBar.getBoundingClientRect().width; 
+        jumpTo(x/durationBarWidth);
     });
 
     //load albums
@@ -200,6 +202,31 @@ function loadData() {
                 }
             }
 
+            // group by release type
+            let release_type_div_id = `${album_release_type}-div`;
+            let release_type_div = document.getElementById(release_type_div_id);
+            let release_type_header_id = `${album_release_type}-header`;
+            let release_type_header = document.getElementById(release_type_header_id);
+            if (!release_type_div) {
+                release_type_div = document.createElement('div');
+                release_type_div.id = release_type_div_id;
+                release_type_header = document.createElement('h3');
+                release_type_header.id = release_type_header_id;
+                release_type_header.classList.add('release-type-text');
+                release_type_header.textContent = `${album_release_type}s`;
+                release_type_div.appendChild(release_type_header);
+                album_covers_box.appendChild(release_type_div);
+            } else {
+                release_type_div = document.getElementById(release_type_div_id);
+                release_type_header = document.getElementById(release_type_header_id);
+            }
+
+            albumMetadataMap.set('album_release_type_div_id', release_type_div_id)
+                .set('album_release_type_div', release_type_div)
+                .set('album_release_type_header_id', release_type_header_id)
+                .set('album_release_type_header', release_type_header)
+                .set('album_first_song_id', first_song_id);
+
             // store in map
             albumMap.set(album_id, albumMetadataMap);
 
@@ -209,11 +236,12 @@ function loadData() {
             album_cover_image.id = album_cover_image_id;
             album_cover_image.src = album_cover;
             album_cover_image.alt = `${album_title} cover`;
-            album_covers_box.appendChild(album_cover_image);
+            release_type_div.appendChild(album_cover_image);
             album_cover_image.addEventListener('click', function() {
-                playSong(first_song_id);
+                filterSongList(album_release_type, album_id);
             });
         })
+        console.log(albumMap);
     })
     .catch(error => console.error('Error loading JSON data:', error));
 
@@ -269,7 +297,9 @@ function updateProgressBar(currentTime, duration) {
     let durationText = `${Math.floor(duration/60)}:${(Math.floor(duration) % 60).toString().padStart(2, '0')}`;
     let progressText = `${currentTimeText}/${durationText}`;
     let progressPercent = currentTime/duration;
-    let progressBarWidth = `${22 * progressPercent}rem`;
+    let durationBar = document.getElementById("main-player-duration-box");
+    let durationBarWidth = durationBar.getBoundingClientRect().width; 
+    let progressBarWidth = `${durationBarWidth * progressPercent}px`;
     const current_time_box = document.getElementById("main-player-current-time-box");
     current_time_box.style.width = progressBarWidth;
     const current_time_text = document.getElementById("main-player-duration-text");
@@ -497,6 +527,79 @@ function unshuffleSongs() {
     console.log(songMap);
     shuffleOn = 0;
     updateCurrentState();
+}
+
+function filterSongList(album_release_type, album_id) {
+    console.log(`filtering list to: ${album_id}`);
+    let this_side_div = document.createElement('div');;
+    let this_song_div = document.createElement('div');;
+    for (const [key, value] of songMap) {
+        let album_div_id = value.get("album_div_id");
+        let album_div = document.getElementById(value.get("album_div_id"));
+        let album_side_div_id = value.get("album_side_div_id");
+        let album_side_div = document.getElementById(value.get("album_side_div_id"));
+        let song_div_id = value.get("song_div_id");
+        let song_div = document.getElementById(value.get("song_div_id"));
+        let song_album_id = value.get("song_album_id");
+        let song_release_type = value.get("song_release_type");
+        
+        if (album_release_type === 'Single' && song_release_type === 'Single' && album_div_id === 'Singles-div') {
+            album_div.classList.remove('album-song-list-hidden');
+            album_div.classList.add('album-song-list-visible');
+            if (album_id === song_album_id) {
+                this_side_div = album_side_div;
+                this_song_div = song_div;
+            };
+        } else if (album_id !== song_album_id) {
+            album_div.classList.remove('album-song-list-visible');
+            album_div.classList.add('album-song-list-hidden');
+        } else {
+            album_div.classList.remove('album-song-list-hidden');
+            album_div.classList.add('album-song-list-visible');
+        }
+    }
+    const album_image_id = `${album_id}_cover`;
+    const album_image = document.getElementById(album_image_id);
+    if (album_image.classList.contains('album-cover-preview-selected')) {
+        resetActiveAlbumImages();
+        unfilterSongList();
+    } else {
+        setActiveAlbumImage(album_id);
+    };
+}
+
+function unfilterSongList() {
+    for (const [key, value] of songMap) {
+        let album_div_id = value.get("album_div_id");
+        let album_div = document.getElementById(value.get("album_div_id"));
+        album_div.classList.remove('album-song-list-hidden');
+        album_div.classList.add('album-song-list-visible');
+    }
+}
+
+function setActiveAlbumImage(album_id) {
+    const album_image_id = `${album_id}_cover`;
+    const album_image_elements = document.querySelectorAll('.album-cover-preview');
+    album_image_elements.forEach(album_image => {
+        if (album_image.id === album_image_id) {
+            album_image.classList.remove('album-cover-preview-inactive');
+            album_image.classList.add('album-cover-preview-active');
+            album_image.classList.add('album-cover-preview-selected');
+        } else {
+            album_image.classList.remove('album-cover-preview-active');
+            album_image.classList.remove('album-cover-preview-selected');
+            album_image.classList.add('album-cover-preview-inactive');
+        };
+    });
+}
+
+function resetActiveAlbumImages() {
+    const album_image_elements = document.querySelectorAll('.album-cover-preview');
+    album_image_elements.forEach(album_image => {
+        album_image.classList.remove('album-cover-preview-inactive');
+        album_image.classList.remove('album-cover-preview-selected');
+        album_image.classList.add('album-cover-preview-active');
+    });
 }
 
 function setControlIcons() {

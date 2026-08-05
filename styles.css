@@ -3,17 +3,25 @@ body{
 }
 .welcome-box {
   max-width: 32rem;
+  min-width: 23rem;
   display: flex;
   width: 100%;
+}
+.body-content {
+  max-width: 32rem;
+  min-width: 23rem;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
 }
 .welcome-box-text {
   max-width: 22rem;
 }
 .welcome-box-image {
-  flex: 1;
+  flex:1;
   background-image: url("assets/images/logos/recycled_heart.png");
   filter: invert(37%) sepia(85%) saturate(7468%) hue-rotate(295deg) brightness(113%) contrast(129%) drop-shadow(0 0 10px #ff00ff);
-  background-size: auto 5rem;
+  background-size: 5rem 5rem;
   background-repeat: no-repeat;
   background-position: right center; 
 }
@@ -28,16 +36,28 @@ h2 {
   font-size: 1.5rem;
 }
 .album-list{
+  flex:1;
+  width: 99%;
+  max-height: 10rem;
   white-space: nowrap; 
   display: inline-block;
-  width: 30rem;
-  height: 7rem;
-  overflow-y: hidden;
+  overflow-y: scroll;
   overflow-x: scroll;
   background-color: black;
   scrollbar-color: #3d3f41 black;
   scrollbar-width: thin;
   margin-top: 5px;
+  box-sizing: border-box;
+}
+.release-type-text {
+  text-shadow: 0 0 10px #00ff00;
+  font-family: Courier;
+  color: lime;
+  vertical-align: center;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
 }
 .album-cover-preview{
   object-fit: contain;
@@ -45,6 +65,24 @@ h2 {
   height: 6rem;
   margin-left: 5px;
   margin-right: 5px;
+}
+.album-cover-preview-active{
+  filter: opacity(100%);
+}
+.album-cover-preview-inactive{
+  filter: opacity(50%);
+}
+.album-song-list-visible {
+  display: block;
+}
+.album-song-list-hidden {
+  display: none;
+}
+.song-list-visible {
+  display: block;
+}
+.song-list-hidden {
+  display: none;
 }
 .album-title-header-box{
   overflow: auto;
@@ -134,50 +172,59 @@ audio {
   margin-bottom: 0.1rem;
 }
 .main-player-box{
-  max-width: 32rem;
+  flex:1;
   width: 100%;
   border: 1px outset #3d3f41;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 4px 3px #3f4141 inset;
-  width: 28rem;
   background-color:#707770;  
   padding: 1rem;
   background-image: repeating-linear-gradient(36deg, rgba(255,255,255, 0.1), rgba(255,255,255, 0.1) 1px, transparent 0px, transparent 2px);
+  box-sizing: border-box;
 }
 .main-player-text-display-box{
+  flex:1;
+  width: 100%;
   display: grid;
   place-items: center;
   border: 2px inset #3d3f41;
   border-radius: 0.5rem;
   background: #bbbbbb;
   padding: .05rem;
-  width: 28rem;
 }
 .main-player-images-box{
   display: flex;
+  flex:1;
+  width: 100%;
   place-items: end;
   justify-content: center;
   margin-top: 1rem;
   margin-bottom: 0rem;
-  height: 10rem;
-  width: 22rem;
+  max-height: 10rem;
+  max-width: 22rem;
 }
 .main-player-now-playing-image-display-box{
-  height: 10rem;
-  width: 10rem;
+  flex:1;
+  width: 100%;
+  max-height: 10rem;
+  max-width: 10rem;
   background-color: #bbbbbb;
   margin-right: 2rem;
   filter: drop-shadow(0.25rem 0.25rem #777777);
   object-fit: contain;
 }
 .main-player-now-playing-image{
-  height: 10rem;
-  width: 10rem;
+  flex:1;
+  width: 100%;
+  max-height: 10rem;
+  max-width: 10rem;
   filter: saturate(50%);
 }
 .main-player-animation-image-display-box{
-  height: 6rem;
-  width: 6rem;
+  flex:1;
+  width: 100%;
+  max-height: 6rem;
+  max-width: 6rem;
   background-color: #aaaaaa;
   border-style: solid;
   border-color: #aaaaaa;
@@ -186,21 +233,28 @@ audio {
   filter: drop-shadow(0.25rem 0.25rem #777777);
 }
 .main-player-animation-image{
-  height: 6rem;
-  width: 6rem;
+  flex:1;
+  width: 100%;
+  max-height: 6rem;
+  max-width: 6rem;
   object-fit: contain;
 }
 .main-player-progress-bar{
+  flex:1;
+  width: 100%;
   display: flex;
 }
 .main-player-duration-box{
+  flex:1;
+  width: 100%;
   position: relative;
   background-color: #777777;
   margin: 0.5rem;
   height: 0.5rem;
-  width: 22rem;
+  max-width: 22rem;
 }
 .main-player-current-time-box{
+  flex: 1;
   position: absolute;
   background-color: #555555;
   margin: 0.5rem;
@@ -212,10 +266,11 @@ audio {
   width: 0rem;
 }
 .main-player-duration-text{
+  flex: 0;
+  margin: 0.5rem;
   margin-top: 0.3rem;
   display: flex;
-  max-width: 7rem;
-  width: auto;
+  width: fit-content;
   font-family: Courier;
   font-size: 0.75rem;
 }

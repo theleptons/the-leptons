@@ -136,44 +136,44 @@
         "Song": "Totally Fucked",
         "Path": "assets/sounds/songs/The Leptons - 2024 - Totally Fucked - 1-01 - Totally Fucked.mp3",
         "AlbumID": "S004",
-        "Album": "Singles",
+        "Album": "Totally Fucked",
         "ReleaseType": "Single",
         "Year": "2024",
         "Track": "1",
-        "Side": "2024"
+        "Side": "A-side"
     },
     {
         "SongID": "S003T01",
         "Song": "Be Kind Rewind",
         "Path": "assets/sounds/songs/The Leptons - 2024 - Be Kind Rewind - 1-01 - Be Kind Rewind.mp3",
         "AlbumID": "S003",
-        "Album": "Singles",
+        "Album": "Be Kind Rewind",
         "ReleaseType": "Single",
         "Year": "2024",
         "Track": "1",
-        "Side": "2024"
+        "Side": "A-side"
     },
     {
         "SongID": "S002T01",
         "Song": "Baby Boy",
         "Path": "assets/sounds/songs/The Leptons - 2019 - Baby Boy - 1-01 - Baby Boy.mp3",
         "AlbumID": "S002",
-        "Album": "Singles",
+        "Album": "Baby Boy",
         "ReleaseType": "Single",
         "Year": "2019",
         "Track": "1",
-        "Side": "2019"
+        "Side": "A-side"
     },
     {
         "SongID": "S001T01",
         "Song": "Color in the Lines",
         "Path": "assets/sounds/songs/The Leptons - 2019 - Color in the Lines - 1-01 - Color in the Lines.mp3",
         "AlbumID": "S001",
-        "Album": "Singles",
+        "Album": "Color in the Lines",
         "ReleaseType": "Single",
         "Year": "2019",
         "Track": "1",
-        "Side": "2019"
+        "Side": "A-side"
     },
     {
         "SongID": "LP02T01",

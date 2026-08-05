@@ -10,47 +10,48 @@
     <h2 class="welcome-box-text">Hello,<br>We are The Leptons.<br> This is our music.</h2>
     <div class="welcome-box-image"></div>
   </div>
-
-  <div class="main-player-box" id="main-player">
-    <div class="main-player-text-display-box" id="main-player-text-display-box">
-      <div class="main-player-images-box" id="main-player-images-box">
-        <div class="main-player-now-playing-image-display-box" id="main-player-now-playing-image-display-box">
-          <img class="main-player-now-playing-image" id="main-player-now-playing-image" src="assets/images/artwork/covers/blank.jpg"></img>
-        </div>  
-        <div class="main-player-animation-image-display-box" id="main-player-animation-image-display-box">
-          <img class="main-player-animation-image" id="main-player-animation-image" src="assets/images/animations/sleeping_monster.gif"></img>
-        </div>
-      </div>
-      <p class="main-player-text" id="main-player-text">Nothing is playing right now.</p>
-      <div class="main-player-progress-bar" id="main-player-progress-bar">
-        <div class="main-player-duration-box" id="main-player-duration-box">
-          <div class="main-player-current-time-box" id="main-player-current-time-box">
+  <div class = "body-content">
+    <div class="main-player-box" id="main-player">
+      <div class="main-player-text-display-box" id="main-player-text-display-box">
+        <div class="main-player-images-box" id="main-player-images-box">
+          <div class="main-player-now-playing-image-display-box" id="main-player-now-playing-image-display-box">
+            <img class="main-player-now-playing-image" id="main-player-now-playing-image" src="assets/images/artwork/covers/blank.jpg"></img>
+          </div>  
+          <div class="main-player-animation-image-display-box" id="main-player-animation-image-display-box">
+            <img class="main-player-animation-image" id="main-player-animation-image" src="assets/images/animations/sleeping_monster.gif"></img>
           </div>
         </div>
-        <div class="main-player-duration-text" id="main-player-duration-text">
-          0:00/0:00
+        <p class="main-player-text" id="main-player-text">Nothing is playing right now.</p>
+        <div class="main-player-progress-bar" id="main-player-progress-bar">
+          <div class="main-player-duration-box" id="main-player-duration-box">
+            <div class="main-player-current-time-box" id="main-player-current-time-box">
+            </div>
+          </div>
+          <div class="main-player-duration-text" id="main-player-duration-text">
+            0:00/0:00
+          </div>
         </div>
       </div>
+      <div class="main-player-controls-box" id="main-player-controls">
+        <button class="audio-control-button main-player-button main-play-button" onclick="playSongs()" id="main-player-button-1">
+          <img src="assets/images/icons/play_button_40.svg" alt="Play">
+        </button>
+        <button class="audio-control-button main-player-button main-skip-previous-button" onclick="previousSong()" id="main-player-skip-previous-button">
+          <img src="assets/images/icons/skip_last_button.svg" alt="Skip Previous">
+        </button>
+        <button class="audio-control-button main-player-button" onclick="stopSong(nowPlaying.id)" id="main-player-stop-button">
+          <img src="assets/images/icons/stop_button.svg" alt="Stop">
+        </button>
+        <button class="audio-control-button main-player-button main-skip-next-button" onclick="nextSong()" id="main-player-skip-next-button">
+          <img src="assets/images/icons/skip_next_button.svg" alt="Skip Next">
+        </button>          
+        <button class="audio-control-button main-player-button main-shuffle-button" onclick="shuffleSongs()" id="main-player-shuffle-button">
+          <img src="assets/images/icons/shuffle_button.svg" alt="Shuffle">
+        </button>     
+      </div>
     </div>
-    <div class="main-player-controls-box" id="main-player-controls">
-      <button class="audio-control-button main-player-button main-play-button" onclick="playSongs()" id="main-player-button-1">
-        <img src="assets/images/icons/play_button_40.svg" alt="Play">
-      </button>
-      <button class="audio-control-button main-player-button main-skip-previous-button" onclick="previousSong()" id="main-player-skip-previous-button">
-        <img src="assets/images/icons/skip_last_button.svg" alt="Skip Previous">
-      </button>
-      <button class="audio-control-button main-player-button" onclick="stopSong(nowPlaying.id)" id="main-player-stop-button">
-        <img src="assets/images/icons/stop_button.svg" alt="Stop">
-      </button>
-      <button class="audio-control-button main-player-button main-skip-next-button" onclick="nextSong()" id="main-player-skip-next-button">
-        <img src="assets/images/icons/skip_next_button.svg" alt="Skip Next">
-      </button>          
-      <button class="audio-control-button main-player-button main-shuffle-button" onclick="shuffleSongs()" id="main-player-shuffle-button">
-        <img src="assets/images/icons/shuffle_button.svg" alt="Shuffle">
-      </button>     
-    </div>
+    <div class="album-list" id="album-list"></div>
+    <div id="song-list"></div>
   </div>
-  <div class="album-list" id="album-list"></div>
-  <div id="song-list"></div>
 </body>
 </html>
