@@ -1,6 +1,7 @@
 //constants
-let songMap = new Map()
-const audioList = []
+let songMap = new Map();
+let albumMap = new Map();
+const audioList = [];
 const deadAir = new Audio();
 let nowPlaying = new Audio()
 let isPaused = 0;
@@ -164,7 +165,7 @@ function loadData() {
     song_duration_bar.addEventListener('click', function(event) {
         const x = event.offsetX;
         const y = event.offsetY;
-        jumpTo(x/384);
+        jumpTo(x/352);
     });
 
     //load albums
@@ -199,6 +200,8 @@ function loadData() {
                 }
             }
 
+            // store in map
+            albumMap.set(album_id, albumMetadataMap);
 
             const album_cover_image = document.createElement('img');
             const album_cover_image_id = `${album_id}_cover`;
@@ -266,7 +269,7 @@ function updateProgressBar(currentTime, duration) {
     let durationText = `${Math.floor(duration/60)}:${(Math.floor(duration) % 60).toString().padStart(2, '0')}`;
     let progressText = `${currentTimeText}/${durationText}`;
     let progressPercent = currentTime/duration;
-    let progressBarWidth = `${24 * progressPercent}rem`;
+    let progressBarWidth = `${22 * progressPercent}rem`;
     const current_time_box = document.getElementById("main-player-current-time-box");
     current_time_box.style.width = progressBarWidth;
     const current_time_text = document.getElementById("main-player-duration-text");
@@ -330,9 +333,13 @@ function updateNowPlaying(){
 function updateMainPlayer(){
     console.log(`function updateMainPlayer`);
     let main_player_button_1 = document.getElementById("main-player-button-1");
+    let main_player_now_playing_image = document.getElementById("main-player-now-playing-image");
+    let main_player_animation_image = document.getElementById("main-player-animation-image");
     let main_player_text = document.getElementById("main-player-text");
     if(nowPlaying.id.trim().length === 0){
         main_player_text.textContent = "Nothing is playing right now.";
+        main_player_animation_image.src = "assets/images/animations/sleeping_monster.gif";
+        main_player_now_playing_image.src = "assets/images/artwork/covers/blank.jpg";
         console.log(`Set display to "Nothing is playing right now."`);
         main_player_button_1.innerHTML = `<img src="assets/images/icons/play_button_40.svg" alt="Play">`;
         main_player_button_1.classList.remove('main-pause-button');
@@ -344,6 +351,7 @@ function updateMainPlayer(){
         let song_metadata = songMap.get(nowPlaying.id);
         let song_title = song_metadata.get("song_title");
         main_player_text.textContent = song_title;
+        main_player_animation_image.src = "assets/images/animations/sleeping_monster.gif"
         console.log(`Set display to '${song_title}'`);
         main_player_button_1.innerHTML = `<img src="assets/images/icons/play_button_40.svg" alt="Resume Song">`;
         main_player_button_1.classList.remove('main-pause-button');
@@ -353,7 +361,12 @@ function updateMainPlayer(){
     } else {
         let song_metadata = songMap.get(nowPlaying.id);
         let song_title = song_metadata.get("song_title");
+        let song_album_id = song_metadata.get("song_album_id"); 
+        let album_metadata = albumMap.get(song_album_id);
+        let album_cover = album_metadata.get("album_cover");
         main_player_text.textContent = song_title;
+        main_player_animation_image.src = "assets/images/animations/excited_monster.gif";
+        main_player_now_playing_image.src = album_cover;
         console.log(`Set display to '${song_title}'`);
         main_player_button_1.innerHTML = `<img src="assets/images/icons/pause_button_40.svg" alt="Pause">`;
         main_player_button_1.classList.remove('main-play-button');
