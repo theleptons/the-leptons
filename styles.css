@@ -134,6 +134,8 @@ audio {
   margin-bottom: 0.1rem;
 }
 .main-player-box{
+  max-width: 32rem;
+  width: 100%;
   border: 1px outset #3d3f41;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 4px 3px #3f4141 inset;
@@ -166,6 +168,7 @@ audio {
   background-color: #bbbbbb;
   margin-right: 2rem;
   filter: drop-shadow(0.25rem 0.25rem #777777);
+  object-fit: contain;
 }
 .main-player-now-playing-image{
   height: 10rem;
@@ -185,6 +188,7 @@ audio {
 .main-player-animation-image{
   height: 6rem;
   width: 6rem;
+  object-fit: contain;
 }
 .main-player-progress-bar{
   display: flex;
