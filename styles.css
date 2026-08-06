@@ -38,7 +38,6 @@ h2 {
 .album-list{
   flex:1;
   width: 99%;
-  max-height: 10rem;
   white-space: nowrap; 
   display: inline-block;
   overflow-y: scroll;
@@ -49,10 +48,13 @@ h2 {
   margin-top: 5px;
   box-sizing: border-box;
 }
+.release-type-songlist-div {
+  margin-bottom: 1rem;
+}
 .release-type-text {
   text-shadow: 0 0 10px #00ff00;
   font-family: Courier;
-  color: lime;
+  color: #00ff00;
   vertical-align: center;
   padding: 0;
   margin: 0;
@@ -96,8 +98,8 @@ h2 {
 .album-title-text{
   font-family: Courier;
   color: magenta;
-  filter: drop-shadow(2px 2px yellow) blur(1px);
-  font-size: 2rem;
+  filter: drop-shadow(0px 1px yellow);
+  font-size: 1.5rem;
   margin: 0;
   display: inline;
 }
@@ -105,22 +107,22 @@ h2 {
   font-family: Courier;
   font-weight: bold;
   color: orange;
-  text-shadow: 0 0 10px orange;
+  text-shadow: 0 0 7px orange;
   text-align: bottom;
   padding: 0;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1rem;
   display: flex;
   align-items: flex-end;
 }
 .song-title-left {
-  text-shadow: 0 0 10px #00ff00;
+  text-shadow: 0 0 6px #00ff00;
   font-family: Courier;
   color: lime;
   vertical-align: bottom;
   padding: 0;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   align-content: left;
   display: inline;
@@ -129,11 +131,11 @@ h2 {
   padding: 0;
   margin: 0;
   margin-left: 1rem;
-  text-shadow: 0 0 10px orange;
+  text-shadow: 0 0 6px orange;
   font-family: Courier;
   color: orange;
   vertical-align: bottom;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 audio {
   filter: invert(100%) contrast(200%);
@@ -150,9 +152,9 @@ audio {
 .play-button {
   background-color: transparent;
   background-image: url("assets/images/icons/play_button.svg");
-  background-size: 1.5rem 1.5rem;
-  height: 1.5rem;  
-  width: 1.5rem;
+  background-size: 1rem 1rem;
+  height: 1rem;  
+  width: 1rem;
   display: inline;
   vertical-align: text-bottom;
   border: none;
@@ -162,9 +164,9 @@ audio {
 .pause-button {
   background-color: transparent;
   background-image: url("assets/images/icons/pause_button.svg");
-  background-size: 1.5rem 1.5rem;
-  height: 1.5rem;  
-  width: 1.5rem;
+  background-size: 1rem 1rem;
+  height: 1rem;  
+  width: 1rem;
   display: inline;
   vertical-align: text-bottom;
   border: none;
